@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="hi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeCart India (प्राइमकार्ट इंडिया) - Online Shopping</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primeBlue: '#1e3a8a',
+                        primeOrange: '#f97316',
+                        primeLight: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-primeBlue text-white text-xs sm:text-sm py-2 px-4 text-center font-medium">
+        <span>🇮🇳 India's Trusted Online Shopping Destination | Free Delivery on Orders Over ₹499 | Use Code: <span class="text-primeOrange font-bold">PRIME100</span></span>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-primeBlue rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-2 border-primeOrange overflow-hidden">
+                        <img src="https://placehold.co/100x100/1e3a8a/ffffff?text=PCI" alt="PrimeCart Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <a href="#" class="text-xl sm:text-2xl font-bold tracking-tight text-primeBlue">PrimeCart <span class="text-primeOrange">India</span></a>
+                        <p class="text-xs text-gray-500 font-semibold">प्राइमकार्ट इंडिया</p>
+                    </div>
+                </div>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-xl mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Search for products, brands and more..." class="w-full pl-4 pr-12 py-2.5 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primeBlue focus:bg-white text-sm">
+                        <button onclick="handleSearch()" class="absolute right-1 top-1/2 -translate-y-1/2 bg-primeOrange text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Action Icons -->
+                <div class="flex items-center space-x-5">
+                    <button class="hidden sm:flex flex-col items-center text-gray-700 hover:text-primeBlue transition">
+                        <i class="fa-regular fa-user text-xl"></i>
+                        <span class="text-xs mt-0.5">Account</span>
+                    </button>
+                    <button class="hidden sm:flex flex-col items-center text-gray-700 hover:text-primeBlue transition">
+                        <i class="fa-regular fa-heart text-xl"></i>
+                        <span class="text-xs mt-0.5">Wishlist</span>
+                    </button>
+                    <button onclick="toggleCart()" class="relative flex flex-col items-center text-gray-700 hover:text-primeBlue transition focus:outline-none">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span class="text-xs mt-0.5">Cart</span>
+                        <span id="cartCount" class="absolute -top-1 -right-2 bg-primeOrange text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-gray-700 hover:text-primeBlue focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Search Bar -->
+            <div class="pb-3 md:hidden">
+                <div class="relative w-full">
+                    <input type="text" id="mobileSearchInput" placeholder="Search products..." class="w-full pl-4 pr-12 py-2 bg-gray-100 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primeBlue">
+                    <button onclick="handleSearch()" class="absolute right-1 top-1/2 -translate-y-1/2 bg-primeOrange text-white px-3 py-1 rounded-full text-xs">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Sub Navigation Categories Menu -->
+        <div class="bg-primeBlue text-white hidden md:block">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <ul class="flex space-x-8 py-2.5 text-sm font-medium">
+                    <li><a href="#categories" onclick="filterCategory('All')" class="hover:text-primeOrange transition">All Categories</a></li>
+                    <li><a href="#products" onclick="filterCategory('Electronics')" class="hover:text-primeOrange transition">Electronics</a></li>
+                    <li><a href="#products" onclick="filterCategory('Fashion')" class="hover:text-primeOrange transition">Fashion</a></li>
+                    <li><a href="#products" onclick="filterCategory('Home & Kitchen')" class="hover:text-primeOrange transition">Home & Kitchen</a></li>
+                    <li><a href="#products" onclick="filterCategory('Groceries')" class="hover:text-primeOrange transition">Groceries</a></li>
+                    <li><a href="#deals" class="hover:text-primeOrange transition">Today's Deals</a></li>
+                    <li><a href="#contact" class="hover:text-primeOrange transition">Customer Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden bg-primeBlue text-white md:hidden px-4 py-3 space-y-2">
+            <a href="#categories" onclick="toggleMobileMenu()" class="block py-1 hover:text-primeOrange">Categories</a>
+            <a href="#products" onclick="toggleMobileMenu()" class="block py-1 hover:text-primeOrange">All Products</a>
+            <a href="#deals" onclick="toggleMobileMenu()" class="block py-1 hover:text-primeOrange">Today's Deals</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-1 hover:text-primeOrange">Contact Us</a>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="relative bg-gradient-to-r from-primeBlue to-blue-900 text-white py-12 sm:py-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-6">
+                <span class="bg-primeOrange text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Big Indian Savings</span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                    Festive & Daily Deals <br><span class="text-primeOrange">Up to 60% OFF</span>
+                </h1>
+                <p class="text-gray-200 text-sm sm:text-base max-w-lg">
+                    Discover quality products across Electronics, Fashion, Home & Kitchen, and fresh Groceries delivered straight to your doorstep across India.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#products" class="bg-primeOrange hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition transform hover:-translate-y-0.5">Shop Now</a>
+                    <a href="#deals" class="border-2 border-white hover:bg-white hover:text-primeBlue text-white font-semibold px-6 py-3 rounded-full transition">Explore Deals</a>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div class="relative bg-white/10 p-6 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl w-full max-w-md text-center">
+                    <div class="absolute -top-3 -right-3 bg-primeOrange text-white text-xs font-bold px-3 py-1 rounded-full shadow">Limited Time</div>
+                    <img src="https://placehold.co/400x250/ffffff/1e3a8a?text=Festive+Offers+PrimeCart" alt="Hero Banner Banner" class="rounded-xl w-full h-48 object-cover mb-4">
+                    <h3 class="text-lg font-bold text-white">Super Savings Dhamaka</h3>
+                    <p class="text-xs text-gray-200 mt-1">Extra 10% cashback on SBI & HDFC Credit Cards</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 right-0 translate-x-10 translate-y-10 w-96 h-96 bg-primeOrange/20 rounded-full blur-3xl pointer-events-none"></div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-primeBlue">Shop By Category</h2>
+                <p class="text-sm text-gray-500">Explore our top collections curated for Indian households</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Category 1 -->
+            <div onclick="filterCategory('Electronics')" class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition cursor-pointer border border-gray-100 text-center flex flex-col items-center">
+                <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-primeBlue text-3xl mb-4 group-hover:bg-primeBlue group-hover:text-white transition">
+                    <i class="fa-solid fa-laptop"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 text-lg">Electronics</h3>
+                <p class="text-xs text-gray-500 mt-1">Mobiles, Laptops, Gadgets</p>
+            </div>
+            <!-- Category 2 -->
+            <div onclick="filterCategory('Fashion')" class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition cursor-pointer border border-gray-100 text-center flex flex-col items-center">
+                <div class="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center text-primeOrange text-3xl mb-4 group-hover:bg-primeOrange group-hover:text-white transition">
+                    <i class="fa-solid fa-shirt"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 text-lg">Fashion</h3>
+                <p class="text-xs text-gray-500 mt-1">Ethnic & Western Wear</p>
+            </div>
+            <!-- Category 3 -->
+            <div onclick="filterCategory('Home & Kitchen')" class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition cursor-pointer border border-gray-100 text-center flex flex-col items-center">
+                <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center text-primeBlue text-3xl mb-4 group-hover:bg-primeBlue group-hover:text-white transition">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 text-lg">Home & Kitchen</h3>
+                <p class="text-xs text-gray-500 mt-1">Appliances, Decor, Cookware</p>
+            </div>
+            <!-- Category 4 -->
+            <div onclick="filterCategory('Groceries')" class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition cursor-pointer border border-gray-100 text-center flex flex-col items-center">
+                <div class="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center text-primeOrange text-3xl mb-4 group-hover:bg-primeOrange group-hover:text-white transition">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 text-lg">Groceries</h3>
+                <p class="text-xs text-gray-500 mt-1">Daily Essentials & Snacks</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Listing Section -->
+    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-primeBlue">Featured Products</h2>
+                <p class="text-sm text-gray-500" id="currentCategoryTitle">Showing all top rated products</p>
+            </div>
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterCategory('All')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-primeBlue text-white shadow">All</button>
+                <button onclick="filterCategory('Electronics')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">Electronics</button>
+                <button onclick="filterCategory('Fashion')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">Fashion</button>
+                <button onclick="filterCategory('Home & Kitchen')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">Home & Kitchen</button>
+                <button onclick="filterCategory('Groceries')" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300">Groceries</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Dynamic products will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section id="deals" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-gradient-to-r from-primeOrange to-orange-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between">
+            <div class="space-y-4 mb-6 md:mb-0 max-w-xl">
+                <span class="bg-white text-primeOrange text-xs font-bold px-3 py-1 rounded-full uppercase">Super Deal of the Day</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold">PrimeCart Smart 5G Smartphone</h2>
+                <p class="text-orange-100 text-sm sm:text-base">Experience lightning fast speed, 108MP AI Camera, and 5000mAh battery with 2 years warranty.</p>
+                <div class="flex items-center space-x-4">
+                    <span class="text-3xl font-bold">₹14,999</span>
+                    <span class="text-lg line-through text-orange-200">₹21,999</span>
+                    <span class="bg-white/25 px-3 py-1 rounded text-sm font-semibold">32% OFF</span>
+                </div>
+                <button onclick="addSpecialDealToCart()" class="bg-white text-primeOrange font-bold px-8 py-3 rounded-full shadow hover:bg-gray-100 transition">Grab This Offer</button>
+            </div>
+            <div class="w-full md:w-1/3 flex justify-center">
+                <div class="bg-white p-4 rounded-2xl shadow-2xl">
+                    <img src="https://placehold.co/300x300/1e3a8a/ffffff?text=Smart+Phone+5G" alt="Deal Product" class="rounded-xl w-full h-56 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Why Choose Us -->
+    <section class="bg-white border-t border-gray-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="p-4">
+                <div class="w-14 h-14 bg-blue-50 text-primeBlue rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 text-base">Pan India Delivery</h4>
+                <p class="text-xs text-gray-500 mt-1">Fast and reliable shipping across all pin codes in India.</p>
+            </div>
+            <div class="p-4">
+                <div class="w-14 h-14 bg-orange-50 text-primeOrange rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 text-base">100% Secure Payments</h4>
+                <p class="text-xs text-gray-500 mt-1">UPI, Credit/Debit cards, Net Banking & Cash on Delivery.</p>
+            </div>
+            <div class="p-4">
+                <div class="w-14 h-14 bg-blue-50 text-primeBlue rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 text-base">Easy Returns</h4>
+                <p class="text-xs text-gray-500 mt-1">Hassle-free 7-day return and exchange policy.</p>
+            </div>
+            <div class="p-4">
+                <div class="w-14 h-14 bg-orange-50 text-primeOrange rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 text-base">24/7 Support</h4>
+                <p class="text-xs text-gray-500 mt-1">Dedicated customer care in Hindi and English.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-primeBlue text-gray-300 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <!-- Brand Column -->
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primeBlue font-bold text-lg shadow">
+                        <img src="https://placehold.co/80x80/1e3a8a/ffffff?text=PCI" alt="Logo" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">PrimeCart India</h3>
+                        <p class="text-xs text-primeOrange font-semibold">प्राइमकार्ट इंडिया</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Your ultimate online shopping partner for top-tier electronics, trendy fashion, home necessities, and daily groceries across India.
+                </p>
+                <div class="flex space-x-3 text-lg">
+                    <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primeOrange text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primeOrange text-white transition"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primeOrange text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-primeOrange text-white transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-white/10 pb-2">Quick Links</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" class="hover:text-primeOrange transition">About Us</a></li>
+                    <li><a href="#products" class="hover:text-primeOrange transition">Featured Products</a></li>
+                    <li><a href="#deals" class="hover:text-primeOrange transition">Today's Deals</a></li>
+                    <li><a href="#" class="hover:text-primeOrange transition">Careers at PrimeCart</a></li>
+                    <li><a href="#" class="hover:text-primeOrange transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <!-- Customer Service -->
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-white/10 pb-2">Customer Care</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" class="hover:text-primeOrange transition">Track Your Order</a></li>
+                    <li><a href="#" class="hover:text-primeOrange transition">Returns & Replacements</a></li>
+                    <li><a href="#" class="hover:text-primeOrange transition">Shipping Guidelines</a></li>
+                    <li><a href="#" class="hover:text-primeOrange transition">FAQs</a></li>
+                    <li><a href="#" class="hover:text-primeOrange transition">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter -->
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-white/10 pb-2">Stay Updated</h4>
+                <p class="text-xs text-gray-400 mb-3">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+                <div class="flex flex-col space-y-2">
+                    <input type="email" placeholder="Enter your email address" class="px-3 py-2 bg-white/10 rounded text-xs text-white focus:outline-none focus:ring-1 focus:ring-primeOrange border border-white/20">
+                    <button onclick="subscribeNewsletter()" class="bg-primeOrange hover:bg-orange-600 text-white font-bold py-2 rounded text-xs transition">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/10 pt-6 text-center text-xs text-gray-400">
+            <p>&copy; 2026 PrimeCart India (प्राइमकार्ट इंडिया). All Rights Reserved. Designed with pride for India 🇮🇳</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Slide-over Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <!-- Cart Header -->
+                <div class="flex items-center justify-between px-6 py-4 bg-primeBlue text-white">
+                    <h3 class="text-lg font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i> Your Shopping Cart
+                    </h3>
+                    <button onclick="toggleCart()" class="text-white hover:text-primeOrange text-xl font-bold focus:outline-none">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <!-- Cart Items List -->
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-gray-100">
+                    <!-- Items rendered dynamically -->
+                </div>
+                <!-- Cart Footer -->
+                <div class="border-t border-gray-200 px-6 py-4 bg-gray-50 space-y-3">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal" class="font-bold text-gray-800">₹0</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Delivery Charges</span>
+                        <span class="text-green-600 font-semibold">FREE</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold text-primeBlue border-t border-gray-200 pt-2">
+                        <span>Total Amount</span>
+                        <span id="cartTotal">₹0</span>
+                    </div>
+                    <button onclick="checkout()" class="w-full bg-primeOrange hover:bg-orange-600 text-white font-bold py-3 rounded-xl shadow transition text-center block">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast / Message Box -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-900 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-green-400 text-lg"></i>
+        <span id="toastMessage">Product added to cart successfully!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Product Dataset
+        const products = [
+            {
+                id: 1,
+                name: "Prime Wireless Bluetooth Earbuds",
+                category: "Electronics",
+                price: 1299,
+                oldPrice: 2999,
+                rating: 4.5,
+                reviews: 1240,
+                image: "https://placehold.co/300x300/1e3a8a/ffffff?text=Bluetooth+Earbuds",
+                badge: "Best Seller"
+            },
+            {
+                id: 2,
+                name: "Men's Casual Slim Fit Cotton Shirt",
+                category: "Fashion",
+                price: 799,
+                oldPrice: 1599,
+                rating: 4.2,
+                reviews: 850,
+                image: "https://placehold.co/300x300/f97316/ffffff?text=Mens+Casual+Shirt",
+                badge: "Trending"
+            },
+            {
+                id: 3,
+                name: "Stainless Steel Insulated Water Bottle 1L",
+                category: "Home & Kitchen",
+                price: 499,
+                oldPrice: 999,
+                rating: 4.7,
+                reviews: 3200,
+                image: "https://placehold.co/300x300/1e3a8a/ffffff?text=Water+Bottle",
+                badge: "Hot Deal"
+            },
+            {
+                id: 4,
+                name: "Organic Premium Basmati Rice 5kg",
+                category: "Groceries",
+                price: 649,
+                oldPrice: 850,
+                rating: 4.8,
+                reviews: 940,
+                image: "https://placehold.co/300x300/f97316/ffffff?text=Basmati+Rice",
+                badge: "Pure Organic"
+            },
+            {
+                id: 5,
+                name: "Smart Fitness Band with Heart Rate Monitor",
+                category: "Electronics",
+                price: 1899,
+                oldPrice: 3499,
+                rating: 4.3,
+                reviews: 610,
+                image: "https://placehold.co/300x300/1e3a8a/ffffff?text=Fitness+Band",
+                badge: "New"
+            },
+            {
+                id: 6,
+                name: "Women's Ethnic Kurta with Dupatta Set",
+                category: "Fashion",
+                price: 1199,
+                oldPrice: 2499,
+                rating: 4.6,
+                reviews: 1420,
+                image: "https://placehold.co/300x300/f97316/ffffff?text=Ethnic+Kurta",
+                badge: "Popular"
+            },
+            {
+                id: 7,
+                name: "Non-Stick Cookware Fry Pan 24cm",
+                category: "Home & Kitchen",
+                price: 899,
+                oldPrice: 1499,
+                rating: 4.4,
+                reviews: 510,
+                image: "https://placehold.co/300x300/1e3a8a/ffffff?text=Non-Stick+Pan",
+                badge: "Sale"
+            },
+            {
+                id: 8,
+                name: "Assorted Dry Fruits Gift Box 500g",
+                category: "Groceries",
+                price: 799,
+                oldPrice: 1299,
+                rating: 4.9,
+                reviews: 2100,
+                image: "https://placehold.co/300x300/f97316/ffffff?text=Dry+Fruits",
+                badge: "Festive Pack"
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'All';
+
+        // Initialize App on Load
+        window.onload = function () {
+            renderProducts(products);
+        };
+
+        // Render Product Cards
+        function renderProducts(itemsToRender) {
+            const grid = document.getElementById('productGrid');
+            if (itemsToRender.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No products found matching your search.</div>`;
+                return;
+            }
+
+            grid.innerHTML = itemsToRender.map(product => `
+                <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition border border-gray-100 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative overflow-hidden rounded-xl bg-gray-100 mb-4 h-52">
+                            <span class="absolute top-3 left-3 bg-primeOrange text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider z-10">${product.badge}</span>
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        </div>
+                        <span class="text-xs text-gray-400 font-medium">${product.category}</span>
+                        <h3 class="font-bold text-gray-800 text-sm mt-1 line-clamp-2 h-10">${product.name}</h3>
+                        <div class="flex items-center mt-2 space-x-1 text-xs text-amber-500">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="font-bold text-gray-700">${product.rating}</span>
+                            <span class="text-gray-400">(${product.reviews})</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-lg font-extrabold text-primeBlue">₹${product.price.toLocaleString('en-IN')}</span>
+                            <span class="text-xs line-through text-gray-400 ml-1">₹${product.oldPrice.toLocaleString('en-IN')}</span>
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="bg-primeOrange hover:bg-orange-600 text-white p-2.5 rounded-xl shadow transition flex items-center justify-center">
+                            <i class="fa-solid fa-cart-plus text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Category
+        function filterCategory(category) {
+            currentFilter = category;
+            document.getElementById('currentCategoryTitle').innerText = category === 'All' ? 'Showing all top rated products' : `Showing products in ${category}`;
+            
+            if (category === 'All') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        // Search Function
+        function handleSearch() {
+            const query = (document.getElementById('searchInput').value || document.getElementById('mobileSearchInput').value).toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            renderProducts(filtered);
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`${product.name} added to cart!`);
+        }
+
+        // Special Deal add
+        function addSpecialDealToCart() {
+            const dealProduct = {
+                id: 99,
+                name: "PrimeCart Smart 5G Smartphone",
+                price: 14999,
+                image: "https://placehold.co/300x300/1e3a8a/ffffff?text=Smart+Phone+5G"
+            };
+            const existingItem = cart.find(item => item.id === 99);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...dealProduct, quantity: 1 });
+            }
+            updateCartUI();
+            showToast("PrimeCart Smart 5G Smartphone added to cart!");
+            toggleCart();
+        }
+
+        // Update Cart Drawer & Badge
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = totalCount;
+
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-gray-400">Your cart is currently empty.</div>`;
+                document.getElementById('cartSubtotal').innerText = '₹0';
+                document.getElementById('cartTotal').innerText = '₹0';
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between py-3">
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg bg-gray-100">
+                        <div>
+                            <h4 class="font-bold text-sm text-gray-800 line-clamp-1">${item.name}</h4>
+                            <p class="text-xs text-gray-500">₹${item.price.toLocaleString('en-IN')} x ${item.quantity}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="decreaseQuantity(${item.id})" class="w-7 h-7 bg-gray-100 rounded-full font-bold text-gray-600 hover:bg-gray-200">-</button>
+                        <span class="text-sm font-semibold">${item.quantity}</span>
+                        <button onclick="increaseQuantity(${item.id})" class="w-7 h-7 bg-gray-100 rounded-full font-bold text-gray-600 hover:bg-gray-200">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cartSubtotal').innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('cartTotal').innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+        }
+
+        function increaseQuantity(id) {
+            const item = cart.find(i => i.id === id);
+            if (item) item.quantity += 1;
+            updateCartUI();
+        }
+
+        function decreaseQuantity(id) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity -= 1;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Toggle Cart Drawer
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Checkout simulation
+        function checkout() {
+            if (cart.length === 0) {
+                showToast("Your cart is empty!");
+                return;
+            }
+            showToast("Order placed successfully! Thank you for shopping with PrimeCart India 🇮🇳");
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter() {
+            showToast("Thank you for subscribing to PrimeCart India!");
+        }
+    </script>
+</body>
+</html>
